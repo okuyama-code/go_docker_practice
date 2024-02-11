@@ -65,4 +65,58 @@ func main() {
 }
 ```
 
+回答
+```go
 
+package main
+
+import (
+	"errors"
+)
+
+// findKeyByValue 関数は、与えられた map から指定された value に対応する key を検索し、見つかればその key を返します。
+// もし対応する key が見つからない場合は、エラーを返します。
+func findKeyByValue(m map[int]string, value string) (int, error) {
+	// マップをループして value を検索
+	for key, val := range m {
+		if val == value {
+			return key, nil // 対応する key を見つけた場合は key を返す
+		}
+	}
+	return 0, errors.New("key not found") // 対応する key が見つからなかった場合はエラーを返す
+}
+
+func main() {
+	// テスト用のマップを作成
+	m := map[int]string{
+		1: "01",
+		2: "02",
+		3: "03",
+	}
+
+	// マップから value を検索し、対応する key を取得
+	key, err := findKeyByValue(m, "03")
+	if err != nil {
+		println("Error:", err)
+	} else {
+		println("Key:", key)
+	}
+
+	// 存在しない value を検索
+	key, err = findKeyByValue(m, "05")
+	if err != nil {
+		println("Error:", err)
+	} else {
+		println("Key:", key)
+	}
+}
+```
+
+## 課題3
+type MyIntSlice []intでIntスライスと互換のある独自型を作り、重複を排除するメソッドを実装する。
+
+```go
+type MyIntSlice []int
+m := MyIntSlice{1, 2, 2, 3, 3, 3, 4, 5}
+fmt.Println(m.Unique()) // [1, 2, 3, 4, 5]
+```
